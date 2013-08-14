@@ -8,6 +8,7 @@ import org.nlogo.api.Context
 import org.nlogo.api.DefaultClassManager
 import org.nlogo.api.DefaultReporter
 import org.nlogo.api.PrimitiveManager
+import org.nlogo.api.ScalaConversions.toLogoList
 import org.nlogo.api.Syntax._
 import org.nlogo.api.Turtle
 
@@ -24,12 +25,12 @@ object KMeansClustersPrim extends DefaultReporter {
     Array(AgentsetType, NumberType, NumberType, NumberType),
     ListType)
   override def report(args: Array[Argument], context: Context) =
-    KMeans.clusters(
-      args(0).getAgentSet, // turtles
-      args(1).getIntValue, // nbClusters
-      args(2).getIntValue, // maxIterations
-      args(3).getDoubleValue, // convergenceThreshold
-      context.getRNG)
+      toLogoList(KMeans.clusters(
+        args(0).getAgentSet, // turtles
+        args(1).getIntValue, // nbClusters
+        args(2).getIntValue, // maxIterations
+        args(3).getDoubleValue, // convergenceThreshold
+        context.getRNG))
 }
 
 object KMeans {
