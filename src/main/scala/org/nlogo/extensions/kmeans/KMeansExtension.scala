@@ -1,6 +1,7 @@
 package org.nlogo.extensions.kmeans
 
 import scala.collection.JavaConverters._
+
 import org.nlogo.api.AgentSet
 import org.nlogo.api.Argument
 import org.nlogo.api.Context
@@ -11,6 +12,7 @@ import org.nlogo.api.PrimitiveManager
 import org.nlogo.api.ScalaConversions.toLogoList
 import org.nlogo.api.Syntax._
 import org.nlogo.api.Turtle
+
 import edu.uci.ics.jung.algorithms.util.KMeansClusterer
 import edu.uci.ics.jung.algorithms.util.KMeansClusterer.NotEnoughClustersException
 
@@ -26,12 +28,13 @@ object KMeansClustersPrim extends DefaultReporter {
     ListType)
   override def report(args: Array[Argument], context: Context) =
     try {
-      toLogoList(KMeans.clusters(
+      val clusters = KMeans.clusters(
         args(0).getAgentSet, // turtles
         args(1).getIntValue, // nbClusters
         args(2).getIntValue, // maxIterations
         args(3).getDoubleValue, // convergenceThreshold
-        context.getRNG))
+        context.getRNG)
+      toLogoList(toTurtleSets(clusters, context.getAgent.world, context.getRNG))
     } catch {
       case e: java.lang.IllegalArgumentException => throw new ExtensionException(e)
       case e: NotEnoughClustersException         => throw new ExtensionException(e)
@@ -44,7 +47,7 @@ object KMeans {
     nbClusters: Int,
     maxIterations: Int,
     convergenceThreshold: Double,
-    rng: java.util.Random): Seq[Seq[org.nlogo.api.Turtle]] = {
+    rng: java.util.Random): Seq[Seq[Turtle]] = {
     if (turtles.count > 0) {
       object Clusterer extends KMeansClusterer[Turtle] {
         rand = rng
