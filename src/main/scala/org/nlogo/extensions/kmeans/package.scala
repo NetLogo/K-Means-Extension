@@ -1,12 +1,12 @@
 package org.nlogo.extensions
 
-import scala.collection.JavaConverters._
-
 import org.nlogo.agent
 import org.nlogo.agent.Turtle
 import org.nlogo.api
+import org.nlogo.util.MersenneTwisterFast
 
 package object kmeans {
+
   def toTurtleSet(
     turtles: Traversable[api.Turtle],
     world: api.World): api.AgentSet = {
@@ -19,12 +19,16 @@ package object kmeans {
       world.asInstanceOf[agent.World])
   }
 
-  def toTurtleSets(
-    turtleSeqs: Seq[Seq[api.Turtle]],
-    world: api.World,
-    rng: java.util.Random): Seq[api.AgentSet] = {
-    val turtleSets: Seq[api.AgentSet] =
-      turtleSeqs.map(toTurtleSet(_, world))(collection.breakOut)
-    new scala.util.Random(rng).shuffle(turtleSets)
+  def splitAgentSet(
+    agentSet: api.AgentSet,
+    rng: MersenneTwisterFast,
+    world: api.World): Seq[api.AgentSet] = {
+    val xs = Seq.newBuilder[api.AgentSet]
+    val it = agentSet.asInstanceOf[agent.AgentSet].shufflerator(rng)
+    val t = classOf[agent.Turtle]
+    val w = world.asInstanceOf[agent.World]
+    while (it.hasNext)
+      xs += new agent.ArrayAgentSet(t, Array(it.next), w)
+    xs.result
   }
 }
