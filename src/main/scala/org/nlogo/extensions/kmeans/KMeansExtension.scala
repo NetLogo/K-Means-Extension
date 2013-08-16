@@ -20,7 +20,7 @@ import edu.uci.ics.jung.algorithms.util.KMeansClusterer
 
 class KMeansExtension extends DefaultClassManager {
   def load(primitiveManager: PrimitiveManager) {
-    primitiveManager.addPrimitive("clusters", KMeansClustersPrim)
+    primitiveManager.addPrimitive("cluster-by-xy", KMeansClustersPrim)
   }
 }
 

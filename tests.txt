@@ -1,68 +1,68 @@
 zero-turtles-and-one-cluster-causes-error
   extensions [ k-means ]
-  k-means:clusters turtles 1 100 0.1 => ERROR Extension exception: Not enough turtles to form the requested number of clusters.
+  k-means:cluster-by-xy turtles 1 100 0.1 => ERROR Extension exception: Not enough turtles to form the requested number of clusters.
 
 zero-turtles-and-zero-clusters-results-in-empty-list
   extensions [ k-means ]
-  k-means:clusters turtles 0 100 0.1 => []
+  k-means:cluster-by-xy turtles 0 100 0.1 => []
 
 zero-clusters-and-five-turtles-results-in-empty-list
   extensions [ k-means ]
   O> crt 5
-  k-means:clusters turtles 0 100 0.1 => []
+  k-means:cluster-by-xy turtles 0 100 0.1 => []
 
 only-one-cluster-requires-no-clustering
   extensions [ k-means ]
   O> crt 5
-  map count k-means:clusters turtles 1 100 0.1 => [5]
+  map count k-means:cluster-by-xy turtles 1 100 0.1 => [5]
 
 fewer-turtles-than-clusters-same-location
   extensions [ k-means ]
   O> crt 5
-  k-means:clusters turtles 10 100 0.1 => ERROR Extension exception: Not enough turtles to form the requested number of clusters.
+  k-means:cluster-by-xy turtles 10 100 0.1 => ERROR Extension exception: Not enough turtles to form the requested number of clusters.
 
 fewer-turtles-than-clusters-distinct-locations
   extensions [ k-means ]
   O> ask n-of 5 patches [ sprout 1 ]
-  k-means:clusters turtles 10 100 0.1 => ERROR Extension exception: Not enough turtles to form the requested number of clusters.
+  k-means:cluster-by-xy turtles 10 100 0.1 => ERROR Extension exception: Not enough turtles to form the requested number of clusters.
 
 same-number-of-turtles-as-clusters-same-location
   extensions [ k-means ]
   O> crt 5
-  k-means:clusters turtles 5 100 0.1 => ERROR Extension exception: Not enough turtles at distinct locations to form the requested number of clusters.
+  k-means:cluster-by-xy turtles 5 100 0.1 => ERROR Extension exception: Not enough turtles at distinct locations to form the requested number of clusters.
 
 same-number-of-turtles-as-clusters-distinct-locations
   extensions [ k-means ]
   O> ask n-of 5 patches [ sprout 1 ]
-  map count k-means:clusters turtles 5 100 0.1 => [1 1 1 1 1]
+  map count k-means:cluster-by-xy turtles 5 100 0.1 => [1 1 1 1 1]
 
 one-more-turtle-than-clusters-same-location
   extensions [ k-means ]
   O> crt 6
-  k-means:clusters turtles 5 100 0.1 => ERROR Extension exception: Not enough turtles at distinct locations to form the requested number of clusters.
+  k-means:cluster-by-xy turtles 5 100 0.1 => ERROR Extension exception: Not enough turtles at distinct locations to form the requested number of clusters.
 
 one-more-turtle-than-clusters-distinct-locations
   extensions [ k-means ]
   O> ask n-of 6 patches [ sprout 1 ]
-  sort map count k-means:clusters turtles 5 100 0.1 => [1 1 1 1 2]
+  sort map count k-means:cluster-by-xy turtles 5 100 0.1 => [1 1 1 1 2]
 
 twice-as-many-turtles-than-clusters-distinct-locations
   extensions [ k-means ]
   O> ask n-of 10 patches [ sprout 1 ]
-  length k-means:clusters turtles 5 100 0.1 => 5
+  length k-means:cluster-by-xy turtles 5 100 0.1 => 5
 
 a-thousand-turtles
   extensions [ k-means ]
   O> crt 1000 [ setxy random-xcor random-ycor ]
-  length k-means:clusters turtles 100 100 0.1 => 100
+  length k-means:cluster-by-xy turtles 100 100 0.1 => 100
 
 order-of-returned~clusters-is-random
   extensions [ k-means ]
   O> ask n-of 2 patches [ sprout 1 ]
-  length remove-duplicates n-values 32 [ k-means:clusters turtles 2 100 0.1 ] => 2
+  length remove-duplicates n-values 32 [ k-means:cluster-by-xy turtles 2 100 0.1 ] => 2
 
 two-clusters-of-two-turles
   extensions [ k-means ]
   O> ask patch -5 0 [ sprout 2 ]
   O> ask patch  5 0 [ sprout 2 ]
-  (word remove-duplicates map [ sort map [ (word sort [ who ] of ?) ] ? ] n-values 32 [ k-means:clusters turtles 2 100 0.1 ]) => "[[[0 1] [2 3]]]"
+  (word remove-duplicates map [ sort map [ (word sort [ who ] of ?) ] ? ] n-values 32 [ k-means:cluster-by-xy turtles 2 100 0.1 ]) => "[[[0 1] [2 3]]]"
