@@ -28,10 +28,13 @@ object KMeansClustersPrim extends DefaultReporter {
   override def getSyntax = reporterSyntax(
     Array(AgentsetType, NumberType, NumberType, NumberType),
     ListType)
-  override def report(args: Array[Argument], context: Context) =
+  override def report(args: Array[Argument], context: Context) = {
+    val agentSet = args(0).getAgentSet
+    if (!classOf[Turtle].isAssignableFrom(agentSet.`type`))
+      throw new ExtensionException("Expected input to be a turtle set.")
     try {
       KMeans.clusters(
-        args(0).getAgentSet, // turtles
+        agentSet, // turtles
         args(1).getIntValue, // nbClusters
         args(2).getIntValue, // maxIterations
         args(3).getDoubleValue, // convergenceThreshold
@@ -40,6 +43,7 @@ object KMeansClustersPrim extends DefaultReporter {
     } catch {
       case e: IllegalArgumentException => throw new ExtensionException(e.getMessage)
     }
+  }
 }
 
 object KMeans {

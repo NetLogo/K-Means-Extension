@@ -66,3 +66,11 @@ two-clusters-of-two-turles
   O> ask patch -5 0 [ sprout 2 ]
   O> ask patch  5 0 [ sprout 2 ]
   (word remove-duplicates map [ sort map [ (word sort [ who ] of ?) ] ? ] n-values 32 [ k-means:cluster-by-xy turtles 2 100 0.1 ]) => "[[[0 1] [2 3]]]"
+
+links-blow-up
+  extensions [ k-means ]
+  k-means:cluster-by-xy links 5 100 0.1 => ERROR Extension exception: Expected input to be a turtle set.
+
+patches-blow-up
+  extensions [ k-means ]
+  k-means:cluster-by-xy patches 5 100 0.1 => ERROR Extension exception: Expected input to be a turtle set.
