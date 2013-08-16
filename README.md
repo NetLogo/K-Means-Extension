@@ -34,7 +34,7 @@ May output:
 
 And result in something like:
 
-[![sample clustering](doc/sample-clustering.png)]
+![sample clustering](doc/sample-clustering.png)
 
 Keep in mind that k-means is a [randomized algorithm](http://en.wikipedia.org/wiki/Random_algorithm) and will not necessarilly give you the same result each time it runs.
 
