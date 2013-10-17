@@ -4,7 +4,7 @@ This extension is a thin wrapper around [Jung 2.0.1's k-means clusterer](http://
 
 You can [download it from here](https://github.com/NetLogo/K-Means-Extension/releases/download/1.0.0/k-means.zip).
 
-[K-Means clustering](http://en.wikipedia.org/wiki/K-means_clustering) is a method for partioning data points into a specified number of clusters.
+[K-Means clustering](http://en.wikipedia.org/wiki/K-means_clustering) is a method for partitioning data points into a specified number of clusters.
 
 Historical note: k-means clustering used to be part of [the NetLogo NW extension](https://github.com/NetLogo/NW-Extension), but since k-means is not a network specific algorithm, it was moved to a separate extension.
 
